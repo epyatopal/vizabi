@@ -1,4 +1,88 @@
 //general styles
+/*.vzb-bs-holder {
+
+  $vzb-bs-width: 200px;
+
+  width: $vzb-bs-width;
+  height: 40px;
+  margin: 0 auto;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    margin-top: -9px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px $vzb-bs-width 8px 0;
+    border-color: transparent rgba($vzb-color-primary, 0.3) transparent transparent;
+    @include border-radius(0 50px 50px 0);
+  }
+
+  .vzb-bs-slider {
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    margin-top: -3px;
+    height: 3px;
+    width: $vzb-bs-width;
+    -webkit-appearance: none;
+    background: transparent;
+    outline: none !important;
+    border: 0;
+    @include border-radius(2px);
+
+    // Slider Handle
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      cursor: pointer;
+      @include border-radius(20px);
+      @include transition(left 0.1s ease-in-out);
+      background-color: $vzb-color-primary;
+      top: -12px;
+      width: 24px;
+      height: 24px;
+      border: 4px solid white;
+    }
+    &::-moz-range-thumb {
+      cursor: pointer;
+      @include border-radius(20px);
+      @include transition(left 0.1s ease-in-out);
+      background: $vzb-color-primary;
+      top: -12px;
+      width: 16px;
+      height: 16px;
+      border: 4px solid white;
+    }
+  }
+}
+
+//large specific styles
+&.vzb-large {
+  .vzb-bs-holder {
+    //...
+  }
+}
+
+//medium specific styles
+&.vzb-medium {
+  .vzb-bs-holder {
+    //...
+  }
+}
+
+//small specific styles
+&.vzb-small {
+  .vzb-bs-holder {
+    //...
+  }
+} */
+
+
+//general styles
 .vzb-bs-holder {
 
   $vzb-bs-width: 200px;
@@ -79,4 +163,176 @@
   .vzb-bs-holder {
     //...
   }
+}
+.d3-slider {
+    position: relative;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 1.1em;
+    border: 1px solid #aaaaaa;
+    z-index: 2;
+}
+
+.d3-slider-horizontal {
+    height: .1em;
+}  
+
+.d3-slider-range {
+  background:#f0f0f0;
+  border:1px solid #ccc;
+  border-radius:0px 0px 50px 50px;
+  left:0px;
+  right:0px;
+  height: 4.0em;
+  position: absolute;
+}
+
+.d3-slider-range-vertical {
+  background:#607889;
+  left:0px;
+  right:0px;
+  position: absolute;
+  top:0;
+}
+
+.d3-slider-vertical {
+    width: .8em;
+    height: 100px;
+}      
+
+.d3-slider-handle {
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    border: 1px solid #d3d3d3;
+    border-radius: 56px;
+    background:#00658b;
+    z-index: 3;
+}
+
+.d3-slider-handle:hover {
+    border: 1px solid #999999;
+}
+
+.d3-slider-horizontal .d3-slider-handle {
+    top: -.3em;
+    margin-left: -.6em;
+}
+
+.d3-slider-axis {
+    position: relative;
+    z-index: 1;    
+}
+
+.d3-slider-axis-bottom {
+    top: .8em;
+}
+
+.d3-slider-axis-right {
+    left: .8em;
+}
+
+.d3-slider-axis path {
+    stroke-width: 0;
+    fill: none;
+}
+
+.d3-slider-axis line {
+    fill: none;
+    stroke: #aaa;
+    shape-rendering: crispEdges;
+}
+
+.d3-slider-axis text {
+    font-size: 11px;
+}
+
+.d3-slider-vertical .d3-slider-handle {
+    left: -.25em;
+    margin-left: 0;
+    margin-bottom: -.6em;      
+}
+
+
+
+.vzb-dialog-inner-circle{
+  left:0px;
+  right:0px;
+  height: 5.0em;
+  position: absolute;
+  z-index:1;
+  top: -5em;
+}
+
+.vzb-dialog-outer-circle{
+  left:0px;
+  right:0px;
+  height: 7.0em;
+  position: absolute;
+  top: -7em;
+
+}
+
+.d3-slider-range{
+  opacity:0;
+}
+
+.d3-slider {
+  top: 7em;
+}
+
+.vzb-dialog-content{
+  height: 152px;
+}
+
+.d3-slider-handle {
+     border-radius: 18px;
+}    
+
+.d3-slider-horizontal {
+    height: 0.1em;
+}
+
+
+
+axis {
+  font: 10px sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.axis .domain {
+  fill: none;
+  stroke: #ccc;
+  stroke-opacity: .3;
+  stroke-width: 10px;
+  stroke-linecap: round;
+}
+
+.axis .halo {
+  fill: #E1DFDD;
+  stroke: #ddd;
+  stroke-width: 8px;
+  stroke-linecap: round;
+}
+
+.slider .handle {
+  fill: #143764;
+  stroke: #143764;
+  stroke-opacity: .5;
+  stroke-width: 1.25px;
+  cursor: crosshair;
+}
+.slider_two .handle_two {
+  fill: #143764;
+  stroke: #143764;
+  stroke-opacity: .5;
+  stroke-width: 1.25px;
+  cursor: crosshair;
+}
+.handle_two{
+  z-index: 998;
+}
+.handle{
+  z-index: 999;
 }
