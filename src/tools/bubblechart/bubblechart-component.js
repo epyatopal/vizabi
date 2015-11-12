@@ -358,6 +358,7 @@ var BubbleChartComp = Component.extend({
     this.bubbleContainer = this.graph.select('.vzb-bc-bubbles');
     this.labelsContainer = this.graph.select('.vzb-bc-labels');
     this.linesContainer = this.graph.select('.vzb-bc-lines');
+    this.printTextContainer = this.graph.select('.vzb-bc-print-text');
     this.zoomRect = this.element.select('.vzb-bc-zoom-rect');
     this.eventArea = this.element.select('.vzb-bc-eventarea');
 
@@ -662,6 +663,87 @@ var BubbleChartComp = Component.extend({
 
     //TODO: no need to create trail group for all entities
     //TODO: instead of :append an :insert should be used to keep order, thus only few trail groups can be inserted
+
+
+    this.entityPrintText = this.printTextContainer.selectAll('.vzb-bc-entity')
+      .data(this.model.entities.getVisible(), function(d) {
+        return d[KEY]
+      })
+
+    this.entityPrintText.exit().remove();
+
+
+
+    // TODO: check for more correct place for the code below
+    this.entityPrintText
+      .enter()
+      .append("g")
+      .attr("class", "vzb-bc-entity")
+      .each(function(d, index) {
+        var view = d3.select(this);
+        var text = _this.model.marker.label.getValue(d);
+
+        view.append("text")
+        .attr("class", "vzb-bc-label-content")
+        .text(text);
+
+
+        // TODO: check if we have to do something with trails
+        //_this._trails.create(d);
+      });
+
+      this.printTextContainer.selectAll('.vzb-bc-entity').each(function(d) {
+        var view = d3.select(this);
+
+
+        var pointer = {};
+        pointer[KEY] = d[KEY];
+        // TODO: check if we have to do something with TIMEDIM
+        //pointer[TIMEDIM] = _this.time;
+
+
+        // FIXME: most of the code below in this function is duplicates from other sources from this file
+        var x = _this.xScale(_this.model.marker.axis_x.getValue(pointer));
+        var y = _this.yScale(_this.model.marker.axis_y.getValue(pointer));
+        var offset = utils.areaToRadius(_this.sScale(_this.model.marker.size.getValue(pointer)));
+
+        var xPos, yPos, xSign = -1,
+          ySign = -1,
+          xOffset = 0,
+          yOffset = 0;
+
+        if(offset) {
+          xOffset = offset * .71; // .71 - sin and cos for 315
+          yOffset = offset * .71;
+        }
+        //position tooltip
+        var contentBBox = view.select('text')[0][0].getBBox();
+        if(x - xOffset - contentBBox.width < 0) {
+          xSign = 1;
+          x += contentBBox.width + 5; // corrective to the block Radius and text padding
+        } else {
+          x -= 5; // corrective to the block Radius and text padding
+        }
+        if(y - yOffset - contentBBox.height < 0) {
+          ySign = 1;
+          y += contentBBox.height;
+        } else {
+          y -= 11; // corrective to the block Radius and text padding
+        }
+        if(offset) {
+          xPos = x + xOffset * xSign;
+          yPos = y + yOffset * ySign; // 5 and 11 - corrective to the block Radius and text padding
+        } else {
+          xPos = x + xOffset * xSign; // .71 - sin and cos for 315
+          yPos = y + yOffset * ySign; // 5 and 11 - corrective to the block Radius and text padding
+        }
+
+        view.attr("transform", "translate(" + (xPos) + "," + (yPos ) + ")")
+
+      });
+
+
+
     this.entityTrails = this.bubbleContainer.selectAll(".vzb-bc-entity")
       .data(getKeys.call(this, "trail-"), function(d) {
         return d[KEY];
